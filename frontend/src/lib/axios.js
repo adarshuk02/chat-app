@@ -1,23 +1,24 @@
 import axios from "axios";
-import Cookies from "js-cookie"; // Import js-cookie
 
 export const axiosInstance = axios.create({
-  baseURL: import.meta.env.MODE === "development" ? "https://chatapp-cl3t.onrender.com/api" : "https://chatapp-cl3t.onrender.com/api",
-  withCredentials: true,  // Make sure cookies are sent with the request
+  baseURL: import.meta.env.MODE === "development" 
+    ? "https://chatapp-cl3t.onrender.com/api" 
+    : "https://chatapp-cl3t.onrender.com/api",
+  withCredentials: true, // Ensures that cookies are sent with requests
 });
 
-// Intercept requests to include the Bearer token from the cookies
-axiosInstance.interceptors.request.use(
-  (config) => {
-    const token = Cookies.get("jwt");  // Retrieve token from cookies
-    if (token) {
-      config.headers["Authorization"] = `Bearer ${token}`;
-    }
-    return config;
-  },
+// You might want to log the cookies or response headers for debugging:
+axiosInstance.interceptors.request.use((config) => {
+  console.log("Request Cookies: ", document.cookie);  // Check if cookies are available
+  return config;
+}, (error) => {
+  return Promise.reject(error);
+});
+
+axiosInstance.interceptors.response.use(
+  (response) => response,
   (error) => {
+    console.error("Error Response: ", error.response);
     return Promise.reject(error);
   }
 );
-
-export default axiosInstance;
