@@ -15,5 +15,10 @@
   "env": {
     "PORT": "3000",
     "DATABASE_URL": "mongodb+srv://adarshuk4723:ZTpIyzpdTCcWkqFm@cluster0.5jytp.mongodb.net/chatapp"
+  },
+  "functions": {
+    "api/**/*.js": {
+      "timeout": 30
+    }
   }
 }
