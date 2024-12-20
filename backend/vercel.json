@@ -17,8 +17,8 @@
     "DATABASE_URL": "mongodb+srv://adarshuk4723:ZTpIyzpdTCcWkqFm@cluster0.5jytp.mongodb.net/chatapp"
   },
   "functions": {
-    "api/**.js": {
-      "maxDuration": 30
+    "/src/index.js": {
+      "maxDuration": 60
     }
   }
 }
