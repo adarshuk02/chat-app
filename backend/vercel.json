@@ -13,7 +13,7 @@
     }
   ],
   "env": {
-    "PORT": "3000",
+    "PORT": "5002",
     "DATABASE_URL": "mongodb+srv://adarshuk4723:ZTpIyzpdTCcWkqFm@cluster0.5jytp.mongodb.net/chatapp"
   },
   "functions": {
