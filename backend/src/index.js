@@ -2,9 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-
 import path from "path";
-
 import { connectDB } from "./lib/db.js";
 
 import authRoutes from "./routes/auth.route.js";
@@ -17,12 +15,12 @@ const PORT = process.env.PORT || 5002;
 const __dirname = path.resolve();
 console.log(PORT);
 
-
+// Enable CORS for your frontend URL
 app.use(express.json());
 app.use(cookieParser());
 app.use(
   cors({
-    origin: "https://chat-app-drab-six-66.vercel.app",
+    origin: "https://chat-app-drab-six-66.vercel.app",  // Correct frontend URL
     credentials: true,
   })
 );
@@ -30,6 +28,7 @@ app.use(
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
+// Serve static files if in production
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
@@ -37,6 +36,9 @@ if (process.env.NODE_ENV === "production") {
     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
   });
 }
+
+// Handle preflight OPTIONS requests
+app.options("*", cors());  // Allow preflight requests
 
 server.listen(PORT, () => {
   console.log("server is running on PORT:" + PORT);
